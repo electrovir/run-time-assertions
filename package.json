@@ -63,6 +63,6 @@
         "prettier-plugin-toml": "^0.3.5",
         "typedoc": "^0.25.2",
         "typescript": "^5.2.2",
-        "virmator": "^9.0.0"
+        "virmator": "^9.0.1"
     }
 }

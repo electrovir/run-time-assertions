@@ -5,6 +5,7 @@ module.exports = {
     ignorePaths: [
         ...baseConfig.ignorePaths,
         '/docs/',
+        '/configs/',
     ],
     words: [
         ...baseConfig.words,
