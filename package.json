@@ -1,6 +1,6 @@
 {
     "name": "run-time-assertions",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "Type safe assertions that work just as well in production run-times as they do in testing.",
     "keywords": [],
     "homepage": "https://github.com/electrovir/run-time-assertions",
