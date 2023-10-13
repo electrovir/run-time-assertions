@@ -5,6 +5,7 @@ import {
     MaybePromise,
     PartialAndNullable,
 } from '@augment-vir/common';
+import {AssertionError} from './assertion.error';
 
 export type ErrorMatchOptions = PartialAndNullable<{
     matchMessage: string | RegExp;
@@ -54,11 +55,11 @@ export function assertThrows(
 
     function runAssertion() {
         if (!caughtError) {
-            throw new Error(`An error was was expected but missing${errorSuffix}`);
+            throw new AssertionError(`An error was was expected but missing${errorSuffix}`);
         }
 
         if (matching?.matchConstructor && !(caughtError instanceof matching.matchConstructor)) {
-            throw new Error(
+            throw new AssertionError(
                 `Error did not match expected constructor '${matching.matchConstructor.name}'${errorSuffix}`,
             );
         }
@@ -70,11 +71,11 @@ export function assertThrows(
                 isRuntimeTypeOf(matching.matchMessage, 'string') &&
                 !message.includes(matching.matchMessage)
             ) {
-                throw new Error(
+                throw new AssertionError(
                     `Error message did not contain '${matching.matchMessage}'${errorSuffix}`,
                 );
             } else if (!message.match(matching.matchMessage)) {
-                throw new Error(
+                throw new AssertionError(
                     `Error message did not match '${matching.matchMessage}'${errorSuffix}`,
                 );
             }

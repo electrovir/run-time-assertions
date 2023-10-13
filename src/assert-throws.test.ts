@@ -2,6 +2,7 @@ import {wait} from '@augment-vir/common';
 import {assert} from '@open-wc/testing';
 import {assertThrows} from './assert-throws';
 import {assertTypeOf} from './assert-type-of';
+import {AssertionError} from './assertion.error';
 
 describe(assertThrows.name, () => {
     it('is synchronous if callback is synchronous with a message', async () => {
@@ -119,7 +120,7 @@ describe(assertThrows.name, () => {
                     throw new Error();
                 },
                 {
-                    matchConstructor: class extends Error {},
+                    matchConstructor: AssertionError,
                 },
             );
         } catch (error) {
