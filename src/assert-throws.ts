@@ -94,32 +94,33 @@ export function assertThrows(
     failureMessage?: string,
 ): MaybePromise<void> {
     let caughtError: any = undefined;
-    const errorSuffix = failureMessage ? `: ${failureMessage}` : '.';
+    const errorSuffix = failureMessage ? `\n\n${failureMessage}` : '';
 
     function runAssertion() {
         if (!caughtError) {
-            throw new AssertionError(`An error was was expected but missing${errorSuffix}`);
+            throw new AssertionError(`No error was thrown${errorSuffix}`);
         }
 
         if (matching?.matchConstructor && !(caughtError instanceof matching.matchConstructor)) {
+            const constructorName = caughtError.constructor.name;
+
             throw new AssertionError(
-                `Error did not match expected constructor '${matching.matchConstructor.name}'${errorSuffix}`,
+                `Error constructor '${constructorName}' did not match expected constructor '${matching.matchConstructor.name}'${errorSuffix}`,
             );
         }
 
         if (matching?.matchMessage) {
             const message = extractErrorMessage(caughtError);
 
-            if (
-                isRuntimeTypeOf(matching.matchMessage, 'string') &&
-                !message.includes(matching.matchMessage)
-            ) {
-                throw new AssertionError(
-                    `Error message did not contain '${matching.matchMessage}'${errorSuffix}`,
-                );
+            if (isRuntimeTypeOf(matching.matchMessage, 'string')) {
+                if (!message.includes(matching.matchMessage)) {
+                    throw new AssertionError(
+                        `Error message\n\n'${message}'\n\ndid not contain\n\n'${matching.matchMessage}'${errorSuffix}`,
+                    );
+                }
             } else if (!message.match(matching.matchMessage)) {
                 throw new AssertionError(
-                    `Error message did not match '${matching.matchMessage}'${errorSuffix}`,
+                    `Error message\n\n'${message}'\n\ndid not match RegExp\n\n'${matching.matchMessage}'${errorSuffix}`,
                 );
             }
         }

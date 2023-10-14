@@ -1,4 +1,4 @@
-import {wait} from '@augment-vir/common';
+import {extractErrorMessage, wait} from '@augment-vir/common';
 import {assert} from '@open-wc/testing';
 import {assertThrows} from './assert-throws';
 import {assertTypeOf} from './assert-type-of';
@@ -78,6 +78,7 @@ describe(assertThrows.name, () => {
         }
 
         assert.isDefined(caughtError);
+        assert.strictEqual(extractErrorMessage(caughtError), 'No error was thrown');
     });
 
     it('errors if no error is caught from an async callback', async () => {
@@ -89,6 +90,7 @@ describe(assertThrows.name, () => {
         }
 
         assert.isDefined(caughtError);
+        assert.strictEqual(extractErrorMessage(caughtError), 'No error was thrown');
     });
 
     it('passes if an error is caught', () => {
@@ -128,6 +130,10 @@ describe(assertThrows.name, () => {
         }
 
         assert.isDefined(caughtError);
+        assert.strictEqual(
+            extractErrorMessage(caughtError),
+            "Error constructor 'Error' did not match expected constructor 'AssertionError'",
+        );
     });
 
     it('fails with mismatched message string', () => {
@@ -147,6 +153,10 @@ describe(assertThrows.name, () => {
         }
 
         assert.isDefined(caughtError);
+        assert.strictEqual(
+            extractErrorMessage(caughtError),
+            "Error message\n\n''\n\ndid not contain\n\n'this is a message'\n\nwith a message",
+        );
     });
 
     it('fails with mismatched message regexp', () => {
@@ -165,6 +175,10 @@ describe(assertThrows.name, () => {
         }
 
         assert.isDefined(caughtError);
+        assert.strictEqual(
+            extractErrorMessage(caughtError),
+            "Error message\n\n''\n\ndid not match RegExp\n\n'/this is a message/'",
+        );
     });
 
     it('fails when a promise does not reject', async () => {
@@ -178,6 +192,7 @@ describe(assertThrows.name, () => {
         }
 
         assert.isDefined(caughtError);
+        assert.strictEqual(extractErrorMessage(caughtError), 'No error was thrown');
     });
 
     it('passes a promise that rejects', async () => {

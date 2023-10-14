@@ -1,6 +1,6 @@
 {
     "name": "run-time-assertions",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Type safe assertions that work just as well in production run-times as they do in testing.",
     "keywords": [],
     "homepage": "https://github.com/electrovir/run-time-assertions",
@@ -34,20 +34,20 @@
         "test:types": "tsc --noEmit"
     },
     "dependencies": {
-        "@augment-vir/common": "^20.0.0",
+        "@augment-vir/common": "^21.0.1",
         "expect-type": "~0.15.0",
         "type-fest": "^4.4.0"
     },
     "devDependencies": {
-        "@augment-vir/browser-testing": "^20.0.0",
+        "@augment-vir/browser-testing": "^21.0.1",
         "@open-wc/testing": "^3.2.0",
         "@types/mocha": "^10.0.2",
         "@web/dev-server-esbuild": "^0.4.1",
-        "@web/test-runner": "^0.17.1",
-        "@web/test-runner-commands": "^0.8.0",
+        "@web/test-runner": "^0.17.2",
+        "@web/test-runner-commands": "^0.8.1",
         "@web/test-runner-playwright": "^0.10.1",
         "@web/test-runner-visual-regression": "^0.8.2",
-        "cspell": "^7.3.7",
+        "cspell": "^7.3.8",
         "dependency-cruiser": "^14.1.1",
         "esbuild": "^0.19.4",
         "istanbul-smart-text-reporter": "^1.1.2",
@@ -63,6 +63,6 @@
         "prettier-plugin-toml": "^0.3.5",
         "typedoc": "^0.25.2",
         "typescript": "^5.2.2",
-        "virmator": "^9.0.1"
+        "virmator": "^9.1.1"
     }
 }
