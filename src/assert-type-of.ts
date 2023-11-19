@@ -31,17 +31,17 @@ export function assertTypeOf<TestingType>(
     input?: TestingType,
 ): AssertTypeOf<TestingType, true> {
     // run time implementation for this doesn't matter
-    const runtimeProxy = new Proxy(
+    const runTimeProxy = new Proxy(
         {},
         {
             get: (target, property) => {
                 if (property === 'not') {
-                    return runtimeProxy;
+                    return runTimeProxy;
                 }
                 return () => true;
             },
         },
     ) as any;
 
-    return runtimeProxy;
+    return runTimeProxy;
 }

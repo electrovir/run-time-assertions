@@ -6,6 +6,7 @@ export const ncuConfig: RunOptions = {
     // exclude these
     reject: [
         ...baseNcuConfig.reject,
+        /** Newer versions break assertTypeOf. */
         'expect-type',
     ],
     // include only these
