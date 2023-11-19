@@ -15,7 +15,10 @@ type WithExtraNotTypeChecks<TestingType, B extends boolean> = Overwrite<
 type AssertTypeOf<TestingType, B extends boolean> = WithExtraNotTypeChecks<TestingType, B> &
     ExtraTypeChecks<TestingType, B>;
 
-/** Uses the expect-type package to assert type matching. */
+/**
+ * Uses the expect-type package to assert type matching. Does not actually do anything at run-time
+ * (like throwing errors).
+ */
 export function assertTypeOf<TestingType>(
     /** Run-time value to type check. */
     input: TestingType,

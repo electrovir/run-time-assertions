@@ -11,5 +11,8 @@ export const typeDocConfig: Partial<TypeDocOptions> = {
     entryPoints: [
         indexTsFile,
     ],
-    intentionallyNotExported: ['AssertTypeOf'],
+    intentionallyNotExported: [
+        'AssertTypeOf',
+        'rawGetTypeOf',
+    ],
 };
