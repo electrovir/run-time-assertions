@@ -1,12 +1,12 @@
 import {
     extractErrorMessage,
     isPromiseLike,
-    isRuntimeTypeOf,
     MaybePromise,
     PartialAndNullable,
     TypedFunction,
 } from '@augment-vir/common';
 import {AssertionError} from './assertion.error';
+import {isRunTimeType} from './run-time-types';
 
 /** Matching options for a thrown error constructor or message string. */
 export type ErrorMatchOptions = PartialAndNullable<{
@@ -112,7 +112,7 @@ export function assertThrows(
         if (matching?.matchMessage) {
             const message = extractErrorMessage(caughtError);
 
-            if (isRuntimeTypeOf(matching.matchMessage, 'string')) {
+            if (isRunTimeType(matching.matchMessage, 'string')) {
                 if (!message.includes(matching.matchMessage)) {
                     throw new AssertionError(
                         `Error message\n\n'${message}'\n\ndid not contain\n\n'${matching.matchMessage}'${errorSuffix}`,
