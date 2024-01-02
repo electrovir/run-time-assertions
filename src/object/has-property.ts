@@ -1,6 +1,7 @@
-import {SetRequired} from 'type-fest';
+import type {SetRequired} from 'type-fest';
 
-type ExtractValue<
+/** Helper type for `hasProperty`. */
+export type ExtractValue<
     KeyGeneric extends PropertyKey,
     ParentGeneric,
 > = KeyGeneric extends keyof ParentGeneric
@@ -9,14 +10,16 @@ type ExtractValue<
       ? SetRequired<Extract<ParentGeneric, Record<KeyGeneric, any>>, KeyGeneric>[KeyGeneric]
       : never;
 
-type CombinedParentValue<KeyGeneric extends PropertyKey, ParentGeneric> = ExtractValue<
+/** Helper type for `hasProperty`. */
+export type CombinedParentValue<KeyGeneric extends PropertyKey, ParentGeneric> = ExtractValue<
     KeyGeneric,
     ParentGeneric
 > extends never
     ? unknown
     : ExtractValue<KeyGeneric, ParentGeneric>;
 
-type CombineTypeWithKey<KeyGeneric extends PropertyKey, ParentGeneric> = ParentGeneric &
+/** Helper type for `hasProperty`. */
+export type CombineTypeWithKey<KeyGeneric extends PropertyKey, ParentGeneric> = ParentGeneric &
     Record<KeyGeneric, CombinedParentValue<KeyGeneric, ParentGeneric>>;
 
 const hasPropertyAttempts: ReadonlyArray<(object: object, key: PropertyKey) => boolean> = [

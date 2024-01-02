@@ -1,11 +1,7 @@
-import {
-    extractErrorMessage,
-    isPromiseLike,
-    MaybePromise,
-    PartialAndNullable,
-    TypedFunction,
-} from '@augment-vir/common';
+import type {MaybePromise, PartialAndNullable, TypedFunction} from '@augment-vir/common';
+import {extractErrorMessage} from '@augment-vir/common';
 import {AssertionError} from './assertion.error';
+import {isPromiseLike} from './object/is-promise';
 import {isRunTimeType} from './run-time-types';
 
 /** Matching options for a thrown error constructor or message string. */

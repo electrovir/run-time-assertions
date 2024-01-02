@@ -1,6 +1,6 @@
 import {itCases} from '@augment-vir/browser-testing';
 import {randomInteger, randomString} from '@augment-vir/common';
-import {assertTypeOf} from 'run-time-assertions';
+import {assertTypeOf} from '../assert-type-of';
 import {hasProperties, hasProperty, isPropertyOf} from './has-property';
 import {isSomeObject} from './is-object';
 import {isPromiseLike} from './is-promise';

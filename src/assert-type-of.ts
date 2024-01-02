@@ -1,5 +1,5 @@
-import {Overwrite} from '@augment-vir/common';
-import {ExpectTypeOf, Not} from 'expect-type';
+import type {Overwrite} from '@augment-vir/common';
+import type {ExpectTypeOf, Not} from 'expect-type';
 
 type ExtraTypeChecks<TestingType, B extends boolean> = {
     toBeAssignableTo: ExpectTypeOf<TestingType, B>['toMatchTypeOf'];

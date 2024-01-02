@@ -1,7 +1,7 @@
 import {getObjectTypedKeys} from '@augment-vir/common';
 import {PartialDeep} from 'type-fest';
-import {isInstanceOf} from './assertions';
-import {isRunTimeType} from './run-time-types';
+import {isInstanceOf} from '../assertions';
+import {isRunTimeType} from '../run-time-types';
 
 /**
  * Extract all nested object keys and values that are different between the two given objects.

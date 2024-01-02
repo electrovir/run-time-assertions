@@ -12,7 +12,11 @@ describe(isPromiseLike.name, () => {
         }
     });
 
-    it('should work', async () => {
+    it('accepts an object with a .then property', () => {
+        assert.isTrue(isPromiseLike({then: () => {}}));
+    });
+
+    it('works an an actual promise', async () => {
         const waiting = wait(0);
         assert.isTrue(isPromiseLike(waiting));
         const awaited = await waiting;

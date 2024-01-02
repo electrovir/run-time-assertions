@@ -1,4 +1,4 @@
-import {AnyFunction} from '@augment-vir/common';
+import type {AnyFunction} from '@augment-vir/common';
 
 /** This function is not used at run time, it's only here for types. */
 /* c8 ignore next 3 */
