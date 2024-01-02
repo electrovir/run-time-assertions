@@ -2,7 +2,23 @@
     "name": "run-time-assertions",
     "version": "0.2.1",
     "description": "Type safe assertions that work just as well in production run-times as they do in testing.",
-    "keywords": [],
+    "keywords": [
+        "assert",
+        "equality",
+        "run time",
+        "types",
+        "type",
+        "typeof",
+        "diff",
+        "browser",
+        "nodejs",
+        "node",
+        "testing",
+        "check",
+        "primitive",
+        "object",
+        "array"
+    ],
     "homepage": "https://github.com/electrovir/run-time-assertions",
     "bugs": {
         "url": "https://github.com/electrovir/run-time-assertions/issues"
