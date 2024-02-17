@@ -1,6 +1,6 @@
 {
     "name": "run-time-assertions",
-    "version": "0.4.0",
+    "version": "1.0.0",
     "description": "Type safe assertions that work just as well in production run-times as they do in testing.",
     "keywords": [
         "assert",
