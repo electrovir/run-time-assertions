@@ -1,4 +1,5 @@
 import type {AnyFunction} from '@augment-vir/common';
+import {AssertionError} from './assertion.error';
 
 /** This function is not used at run time, it's only here for types. */
 /* c8 ignore next 3 */
@@ -52,13 +53,12 @@ export function isRunTimeType<T extends RunTimeType>(
 export function assertRunTimeType<T extends RunTimeType>(
     input: unknown,
     testType: T,
-    inputName: string,
+    failureMessage: string | undefined,
 ): asserts input is RunTimeTypeMapping[T] {
     if (!isRunTimeType(input, testType)) {
-        throw new TypeError(
-            `'${inputName}' is of type '${getRunTimeType(
-                input,
-            )}' but type '${testType}' was expected.`,
+        throw new AssertionError(
+            failureMessage ||
+                `value is of type '${getRunTimeType(input)}' but type '${testType}' was expected.`,
         );
     }
 }
