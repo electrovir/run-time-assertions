@@ -11,12 +11,10 @@ export type ExtractValue<
       : never;
 
 /** Helper type for `hasProperty`. */
-export type CombinedParentValue<KeyGeneric extends PropertyKey, ParentGeneric> = ExtractValue<
-    KeyGeneric,
-    ParentGeneric
-> extends never
-    ? unknown
-    : ExtractValue<KeyGeneric, ParentGeneric>;
+export type CombinedParentValue<KeyGeneric extends PropertyKey, ParentGeneric> =
+    ExtractValue<KeyGeneric, ParentGeneric> extends never
+        ? unknown
+        : ExtractValue<KeyGeneric, ParentGeneric>;
 
 /** Helper type for `hasProperty`. */
 export type CombineTypeWithKey<KeyGeneric extends PropertyKey, ParentGeneric> = ParentGeneric &
