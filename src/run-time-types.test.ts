@@ -2,6 +2,7 @@ import {itCases} from '@augment-vir/browser-testing';
 import {JsonCompatibleObject, JsonCompatibleValue} from '@augment-vir/common';
 import {assertThrows} from './assert-throws';
 import {assertTypeOf} from './assert-type-of';
+import {AssertionError} from './assertion.error';
 import {RunTimeType, RunTimeTypeMapping, assertRunTimeType, isRunTimeType} from './run-time-types';
 
 describe('RunTimeTypeMapping', () => {
@@ -67,17 +68,24 @@ describe(isRunTimeType.name, () => {
 });
 
 describe(assertRunTimeType.name, () => {
-    it('should narrow types', () => {
+    it('narrows types', () => {
         const example = 'test thing' as unknown;
 
         assertTypeOf(example).not.toEqualTypeOf<string>();
-        assertRunTimeType(example, 'string', 'example');
+        assertRunTimeType(example, 'string');
         assertTypeOf(example).toEqualTypeOf<string>();
     });
 
-    it('should throw an error if the assertion fails', () => {
-        assertThrows(() => assertRunTimeType([], 'string', 'empty array'), {
-            matchConstructor: TypeError,
+    it('throws an error if the assertion fails', () => {
+        assertThrows(() => assertRunTimeType([], 'string', 'is not a string'), {
+            matchConstructor: AssertionError,
+            matchMessage: 'is not a string',
+        });
+    });
+    it('throws default message', () => {
+        assertThrows(() => assertRunTimeType([], 'string'), {
+            matchConstructor: AssertionError,
+            matchMessage: "value is of type 'array' but type 'string' was expected.",
         });
     });
 });

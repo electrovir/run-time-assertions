@@ -53,7 +53,7 @@ export function isRunTimeType<T extends RunTimeType>(
 export function assertRunTimeType<T extends RunTimeType>(
     input: unknown,
     testType: T,
-    failureMessage: string | undefined,
+    failureMessage?: string | undefined,
 ): asserts input is RunTimeTypeMapping[T] {
     if (!isRunTimeType(input, testType)) {
         throw new AssertionError(
