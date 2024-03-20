@@ -3,6 +3,7 @@ export * from './assert-type-of';
 export * from './assertion.error';
 export * from './assertions';
 export * from './equality/json-equal';
+export * from './equality/simple-equal';
 export * from './object/diff';
 export * from './object/has-property';
 export * from './object/is-object';
