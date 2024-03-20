@@ -41,7 +41,7 @@
         "format": "virmator format",
         "publish": "virmator publish \"npm run compile && npm run test:all\"",
         "test": "virmator test-web",
-        "test:all": "concurrently --colors --kill-others-on-fail -c auto --names types,tests,spelling,format,docs,deps \"npm run test:types\" \"npm run test:coverage\" \"npm run test:spelling\" \"npm run test:format\" \"npm run test:docs\" \"npm run test:deps\"",
+        "test:all": "npm run compile && concurrently --colors --kill-others-on-fail -c auto --names types,tests,spelling,format,docs,deps \"npm run test:types\" \"npm run test:coverage\" \"npm run test:spelling\" \"npm run test:format\" \"npm run test:docs\" \"npm run test:deps\"",
         "test:coverage": "npm run test coverage",
         "test:deps": "virmator deps check",
         "test:docs": "virmator docs check",
