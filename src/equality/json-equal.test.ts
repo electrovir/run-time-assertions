@@ -1,7 +1,14 @@
 import {itCases} from '@augment-vir/browser-testing';
 import {assert} from '@open-wc/testing';
 import {assertThrows} from '../assert-throws';
-import {assertJsonEqual, isJsonEqual, JsonStringifyError} from './json-equal';
+import {AssertionError} from '../assertion.error';
+import {
+    JsonStringifyError,
+    assertJsonEqual,
+    assertLooseJsonEqual,
+    isJsonEqual,
+    isLooseJsonEqual,
+} from './json-equal';
 
 describe(isJsonEqual.name, () => {
     it('should pass for different object references', () => {
@@ -135,7 +142,7 @@ describe(assertJsonEqual.name, () => {
                 {hi: 'bye'},
                 {no: 'yes'},
             ],
-            throws: Error,
+            throws: AssertionError,
         },
         {
             it: 'does not throw when equal',
@@ -144,6 +151,132 @@ describe(assertJsonEqual.name, () => {
                 {hi: 'bye'},
             ],
             throws: undefined,
+        },
+    ]);
+});
+
+describe(isLooseJsonEqual.name, () => {
+    itCases(isLooseJsonEqual, [
+        {
+            it: 'rejects unequal strings',
+            inputs: [
+                'a',
+                'b',
+            ],
+            expect: false,
+        },
+        {
+            it: 'rejects equal non-serializable values',
+            inputs: [
+                4n,
+                4,
+            ],
+            expect: false,
+        },
+        {
+            it: 'accepts equal objects',
+            inputs: [
+                {
+                    prop1: 'hi',
+                    prop2: 'bye',
+                },
+                {
+                    prop1: 'hi',
+                    prop2: 'bye',
+                },
+            ],
+            expect: true,
+        },
+        {
+            it: 'ignores not serializable properties',
+            inputs: [
+                {
+                    prop1: 'hi',
+                    prop2: 'bye',
+                    prop3: 3n,
+                },
+                {
+                    prop1: 'hi',
+                    prop2: 'bye',
+                    prop3: 9n,
+                },
+            ],
+            expect: true,
+        },
+        {
+            it: 'rejects mismatched keys',
+            inputs: [
+                {
+                    prop1: 'hi',
+                    prop2: 'bye',
+                    prop3: 3n,
+                },
+                {
+                    prop1: 'hi',
+                    prop2: 'bye',
+                },
+            ],
+            expect: false,
+        },
+        {
+            it: 'rejects mismatched property types',
+            inputs: [
+                {
+                    prop1: 'hi',
+                    prop2: 'bye',
+                    prop3: 3n,
+                },
+                {
+                    prop1: 'hi',
+                    prop2: 'bye',
+                    prop3: 3,
+                },
+            ],
+            expect: false,
+        },
+        {
+            it: 'rejects an input that errors on getting keys',
+            inputs: [
+                new Proxy(
+                    {
+                        prop1: 'hi',
+                        prop2: 'bye',
+                        prop3: 3,
+                    },
+                    {
+                        ownKeys() {
+                            throw new Error('failing for test');
+                        },
+                    },
+                ),
+                {
+                    prop1: 'hi',
+                    prop2: 'bye',
+                    prop3: 3,
+                },
+            ],
+            expect: false,
+        },
+    ]);
+});
+
+describe(assertLooseJsonEqual.name, () => {
+    itCases(assertLooseJsonEqual, [
+        {
+            it: 'accepts equal values',
+            inputs: [
+                'a',
+                'a',
+            ],
+            throws: undefined,
+        },
+        {
+            it: 'rejects unequal values',
+            inputs: [
+                4n,
+                4,
+            ],
+            throws: AssertionError,
         },
     ]);
 });
