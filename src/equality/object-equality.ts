@@ -6,7 +6,11 @@ import {isStrictEqual} from './simple-equal';
  * Checks if the input's object property values are strictly equal to each other. If the inputs are
  * not objects, perform the strict equality check on them directly.
  */
-export function arePropsStrictEqual(a: unknown, b: unknown): boolean {
+export function arePropsStrictEqual(
+    a: unknown,
+    b: unknown,
+    customInnerEquality: (a: unknown, b: unknown) => boolean = isStrictEqual,
+): boolean {
     if (isObject(a) && isObject(b)) {
         const allKeys = Array.from(
             new Set([
@@ -19,10 +23,10 @@ export function arePropsStrictEqual(a: unknown, b: unknown): boolean {
             const aValue = (a as AnyObject)[key];
             const bValue = (b as AnyObject)[key];
 
-            return isStrictEqual(aValue, bValue);
+            return customInnerEquality(aValue, bValue);
         });
     } else {
-        return isStrictEqual(a, b);
+        return customInnerEquality(a, b);
     }
 }
 

@@ -79,5 +79,22 @@ describe(arePropsStrictEqual.name, () => {
             ],
             expect: true,
         },
+        {
+            it: 'accepts equal non primitives',
+            inputs: [
+                {a: 'hi'},
+                {a: 'hi'},
+            ],
+            expect: true,
+        },
+        {
+            it: 'allows custom equality check',
+            inputs: [
+                {a: 'hi'},
+                {a: 'hi'},
+                () => false,
+            ],
+            expect: false,
+        },
     ]);
 });
