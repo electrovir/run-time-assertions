@@ -1,4 +1,4 @@
-import {AnyObject} from '../../node_modules/@augment-vir/common/dist/types/index';
+import {AnyObject} from '@augment-vir/common';
 import {AssertionError} from '../assertion.error';
 import {isStrictEqual} from './simple-equal';
 
