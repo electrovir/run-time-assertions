@@ -1,0 +1,63 @@
+import {assert} from '@open-wc/testing';
+import {assertThrows} from '../assert-throws';
+import {arePropsStrictEqual, assertPropsStrictEqual} from './object-equality';
+
+describe(arePropsStrictEqual.name, () => {
+    it('passes props that are the same', () => {
+        const prop1 = {};
+        const prop2 = new Date();
+
+        assert.isTrue(
+            arePropsStrictEqual(
+                {
+                    prop1,
+                    prop2,
+                },
+                {
+                    prop1,
+                    prop2,
+                },
+            ),
+        );
+        assertPropsStrictEqual(
+            {
+                prop1,
+                prop2,
+            },
+            {
+                prop1,
+                prop2,
+            },
+        );
+    });
+
+    it('rejects props that are different', () => {
+        const prop1 = {};
+        const prop2 = new Date();
+
+        assert.isFalse(
+            arePropsStrictEqual(
+                {
+                    prop1,
+                    prop2,
+                },
+                {
+                    prop1,
+                    prop2: new Date(),
+                },
+            ),
+        );
+        assertThrows(() =>
+            assertPropsStrictEqual(
+                {
+                    prop1,
+                    prop2,
+                },
+                {
+                    prop1,
+                    prop2: new Date(),
+                },
+            ),
+        );
+    });
+});
