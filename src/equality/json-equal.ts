@@ -39,18 +39,23 @@ export function isJsonEqual(
         }
 
         if (isObject(a) && isObject(b)) {
-            const areKeysEqual = baseAreJsonEqual(Object.keys(a).sort(), Object.keys(b).sort());
+            const aKeys = Object.keys(a).sort();
+            const bKeys = Object.keys(b).sort();
 
-            if (!areKeysEqual) {
-                return false;
+            if (aKeys.length || bKeys.length) {
+                const areKeysEqual = baseAreJsonEqual(aKeys, bKeys);
+
+                if (!areKeysEqual) {
+                    return false;
+                }
+
+                return getObjectTypedKeys(a).every((keyName) => {
+                    return isJsonEqual(a[keyName as any], b[keyName as any]);
+                });
             }
-
-            return getObjectTypedKeys(a).every((keyName) => {
-                return isJsonEqual(a[keyName as any], b[keyName as any]);
-            });
-        } else {
-            return baseAreJsonEqual(a, b);
         }
+
+        return baseAreJsonEqual(a, b);
     } catch (caught) {
         throw new JsonStringifyError(extractErrorMessage(caught));
     }
@@ -86,23 +91,27 @@ export function isLooseJsonEqual(a: unknown, b: unknown): boolean {
                 ...getObjectTypedKeys(b),
             ]);
 
-            return Array.from(allKeys).every((key) => {
-                if (!hasKey(a, key) || !hasKey(b, key)) {
-                    return false;
-                }
+            console.log(allKeys.size);
 
-                const aValue = a[key];
-                const bValue = b[key];
+            if (allKeys.size) {
+                return Array.from(allKeys).every((key) => {
+                    if (!hasKey(a, key) || !hasKey(b, key)) {
+                        return false;
+                    }
 
-                if (typeof aValue !== typeof bValue) {
-                    return false;
-                }
+                    const aValue = a[key];
+                    const bValue = b[key];
 
-                return wrapInTry(() => isJsonEqual(aValue, bValue), {fallbackValue: true});
-            });
-        } else {
-            return wrapInTry(() => isJsonEqual(a as any, b as any), {fallbackValue: false});
+                    if (typeof aValue !== typeof bValue) {
+                        return false;
+                    }
+
+                    return wrapInTry(() => isJsonEqual(aValue, bValue), {fallbackValue: true});
+                });
+            }
         }
+
+        return wrapInTry(() => isJsonEqual(a as any, b as any), {fallbackValue: false});
     } catch (error) {
         return false;
     }

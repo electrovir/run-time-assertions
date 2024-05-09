@@ -257,6 +257,22 @@ describe(isLooseJsonEqual.name, () => {
             ],
             expect: false,
         },
+        {
+            it: 'detects different Dates',
+            inputs: [
+                new Date(1000),
+                new Date(10),
+            ],
+            expect: false,
+        },
+        {
+            it: 'detects identical Dates',
+            inputs: [
+                new Date(10),
+                new Date(10),
+            ],
+            expect: true,
+        },
     ]);
 });
 
