@@ -1,3 +1,4 @@
+import {itCases} from '@augment-vir/browser-testing';
 import {assert} from '@open-wc/testing';
 import {assertThrows} from '../assert-throws';
 import {arePropsStrictEqual, assertPropsStrictEqual} from './object-equality';
@@ -60,4 +61,23 @@ describe(arePropsStrictEqual.name, () => {
             ),
         );
     });
+
+    itCases(arePropsStrictEqual, [
+        {
+            it: 'rejects unequal primitives',
+            inputs: [
+                'a',
+                'b',
+            ],
+            expect: false,
+        },
+        {
+            it: 'accepts equal primitives',
+            inputs: [
+                'a',
+                'a',
+            ],
+            expect: true,
+        },
+    ]);
 });
