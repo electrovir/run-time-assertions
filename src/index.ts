@@ -2,7 +2,6 @@ export * from './assert-throws';
 export * from './assert-type-of';
 export * from './assertion.error';
 export * from './assertions';
-export * from './equality/deep-equal';
 export * from './equality/json-equal';
 export * from './equality/simple-equal';
 export * from './object/diff';
