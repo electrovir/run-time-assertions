@@ -14,7 +14,7 @@ export type RawTypeOfOutput = ReturnType<typeof rawGetTypeOf>;
  * The available run-time type options. In addition to the options returned by the built-in `typeof`
  * operator, this adds `'array'` as a type string.
  */
-export type RunTimeType = RawTypeOfOutput | 'array';
+export type RunTimeType = RawTypeOfOutput | 'array' | 'null';
 
 /** The type that each RunTimeType string maps to. */
 export type RunTimeTypeMapping = {
@@ -27,6 +27,7 @@ export type RunTimeTypeMapping = {
     string: string;
     symbol: symbol;
     undefined: undefined;
+    null: null;
 };
 
 /**
@@ -34,7 +35,13 @@ export type RunTimeTypeMapping = {
  * 'object' (vs the built-in `typeof` operator that return `'object'` for both arrays and objects.)
  */
 export function getRunTimeType(input: unknown): RunTimeType {
-    return Array.isArray(input) ? 'array' : typeof input;
+    if (input === null) {
+        return 'null';
+    } else if (Array.isArray(input)) {
+        return 'array';
+    } else {
+        return typeof input;
+    }
 }
 
 /** Checks if the input matches the given test type. */

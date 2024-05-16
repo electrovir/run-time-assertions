@@ -3,12 +3,28 @@ import {JsonCompatibleObject, JsonCompatibleValue} from '@augment-vir/common';
 import {assertThrows} from './assert-throws';
 import {assertTypeOf} from './assert-type-of';
 import {AssertionError} from './assertion.error';
-import {RunTimeType, RunTimeTypeMapping, assertRunTimeType, isRunTimeType} from './run-time-types';
+import {
+    RunTimeType,
+    RunTimeTypeMapping,
+    assertRunTimeType,
+    getRunTimeType,
+    isRunTimeType,
+} from './run-time-types';
 
 describe('RunTimeTypeMapping', () => {
     it('has all RunTimeType options as keys', () => {
         assertTypeOf<keyof RunTimeTypeMapping>().toEqualTypeOf<RunTimeType>();
     });
+});
+
+describe(getRunTimeType.name, () => {
+    itCases(getRunTimeType, [
+        {
+            it: 'does not treat null as object',
+            input: null,
+            expect: 'null',
+        },
+    ]);
 });
 
 describe(isRunTimeType.name, () => {
