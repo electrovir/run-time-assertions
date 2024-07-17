@@ -129,14 +129,12 @@ describe(diffObjects.name, () => {
             expect: [
                 {
                     b: [
-                        ,
                         'not equal 1',
                         'missing',
                     ],
                 },
                 {
                     b: [
-                        ,
                         'not equal 2',
                     ],
                 },
@@ -186,12 +184,9 @@ describe(diffObjects.name, () => {
                 {
                     b: [
                         [
-                            ,
                             {
                                 e: 'not equal 1',
                                 f: [
-                                    ,
-                                    ,
                                     'not equal 1',
                                 ],
                             },
@@ -202,11 +197,9 @@ describe(diffObjects.name, () => {
                 {
                     b: [
                         [
-                            ,
                             {
                                 e: 'not equal 2',
                                 f: [
-                                    ,
                                     'missing',
                                     'not equal 2',
                                 ],

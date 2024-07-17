@@ -70,7 +70,7 @@ export function diffArrays<T0, T1>(
                 ...Object.keys(array1),
             ].map((index) => Number(index)),
         ),
-    );
+    ).sort();
 
     const diffArrays = allArrayIndexes.reduce(
         (accum, arrayIndex) => {
@@ -79,17 +79,13 @@ export function diffArrays<T0, T1>(
 
             const diffOutput = diffValues(value0, value1);
 
-            if (!diffOutput.length) {
-                return accum;
-            }
-
-            if (!(arrayIndex in array0)) {
-                accum[1][arrayIndex] = diffOutput[1];
-            } else if (!(arrayIndex in array1)) {
-                accum[0][arrayIndex] = diffOutput[0];
-            } else {
-                accum[0][arrayIndex] = diffOutput[0];
-                accum[1][arrayIndex] = diffOutput[1];
+            if (diffOutput.length) {
+                if (arrayIndex in array0) {
+                    accum[0].push(diffOutput[0]);
+                }
+                if (arrayIndex in array1) {
+                    accum[1].push(diffOutput[1]);
+                }
             }
 
             return accum;

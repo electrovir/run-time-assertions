@@ -91,8 +91,6 @@ export function isLooseJsonEqual(a: unknown, b: unknown): boolean {
                 ...getObjectTypedKeys(b),
             ]);
 
-            console.log(allKeys.size);
-
             if (allKeys.size) {
                 return Array.from(allKeys).every((key) => {
                     if (!hasKey(a, key) || !hasKey(b, key)) {
